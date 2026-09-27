@@ -2,9 +2,13 @@ package:
   name: node-event-emitter
   dependencies:
     - effect
+    - either
+    - functions
     - maybe
+    - nullable
     - options
     - prelude
+    - unsafe-coerce
 
   test:
     main: Test.Main
