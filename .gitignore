@@ -10,3 +10,6 @@ output.bak/
 /.psa*
 /.spago
 /.vscode
+java_output/
+classes/
+.spago/
