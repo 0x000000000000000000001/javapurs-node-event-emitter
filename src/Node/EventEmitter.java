@@ -4,12 +4,13 @@
     public static class EmitterBase {
         public final java.util.Map<String, java.util.List<Object>> listeners = new java.util.concurrent.ConcurrentHashMap<>();
         public final java.util.Set<String> fired = java.util.concurrent.ConcurrentHashMap.newKeySet();
+        public final java.util.Map<String, Object[]> lastArgs = new java.util.concurrent.ConcurrentHashMap<>();
 
         public void addListener(String name, Object listener, boolean prepend) {
             java.util.List<Object> registered = listeners.computeIfAbsent(name, key -> new java.util.concurrent.CopyOnWriteArrayList<>());
             if (prepend) registered.add(0, listener);
             else registered.add(listener);
-            if (fired.contains(name)) invoke(listener, new Object[0]);
+            if (fired.contains(name)) invoke(listener, lastArgs.getOrDefault(name, new Object[0]));
         }
 
         public void removeListener(String name, Object listener) {
@@ -19,6 +20,7 @@
 
         public void fire(String name, Object... args) {
             fired.add(name);
+            lastArgs.put(name, args);
             java.util.List<Object> registered = listeners.get(name);
             if (registered == null) return;
             for (Object listener : new java.util.ArrayList<>(registered)) invoke(listener, args);
