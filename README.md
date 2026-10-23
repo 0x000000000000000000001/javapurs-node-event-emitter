@@ -1,5 +1,9 @@
 # purescript-node-event-emitter
 
+Java port of the PureScript `node-event-emitter` package. See the
+[port maintenance guide](../javapurs/docs/port-maintenance.md)
+for source layout, local dependency selection and JVM validation.
+
 ## JVM tests
 
 `./bin/test` selects `node-event-emitter` in the [common isolated runner](../javapurs/docs/testing.md#port-particulier). It awaits the original Spec tests plus the port regressions and requires 19 successes and a completion marker. A captured Spec assertion failure fails the command.
